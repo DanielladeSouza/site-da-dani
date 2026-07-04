@@ -338,11 +338,11 @@
   // ---------- Reiniciar (mantém o lead já enviado) ----------
 
   function restartQuiz(){
-    state = { answers: {}, currentIndex: 0, leadSubmitted: state.leadSubmitted };
+    state = { answers: {}, currentIndex: 0, leadSubmitted: false };
     saveState();
     progressBar.style.width = '0%';
-    showScreen('quiz');
-    renderQuestion();
+    leadForm.reset();
+    showScreen('landing');
   }
 
   // ---------- Eventos ----------

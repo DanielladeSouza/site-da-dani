@@ -160,17 +160,38 @@ body{
 .hero__overlay{
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(58,52,44,0.20) 0%, rgba(58,52,44,0) 30%, rgba(58,52,44,0) 66%, rgba(250,246,238,0.92) 100%);
+  background: linear-gradient(180deg, rgba(18,16,11,0.62) 0%, rgba(18,16,11,0.36) 24%, rgba(58,52,44,0) 44%, rgba(58,52,44,0) 66%, rgba(250,246,238,0.92) 100%);
 }
 
-.hero__logo{
+.hero__headline{
   position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(260px, 74vw, 380px);
-  height: auto;
-  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.28));
+  top: 7%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 30px;
+  text-align: center;
+}
+
+.hero__title{
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6.6vw, 1.9rem);
+  line-height: 1.32;
+  color: #FBF6EA;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.hero__subtitle{
+  margin: 16px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--gold-light);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 
 .hero__overlay-content{
@@ -693,9 +714,16 @@ body{
 /* ---------- Apenas mobile (celular) ---------- */
 
 @media (max-width: 559px){
-  .hero__logo{
-    width: clamp(190px, 52vw, 260px);
-    top: 21%;
+  .hero__headline{
+    top: 6%;
+  }
+
+  .hero__title{
+    font-size: clamp(1.32rem, 6.4vw, 1.62rem);
+  }
+
+  .hero__subtitle{
+    font-size: 0.92rem;
   }
 
   .position__grid{
@@ -755,8 +783,18 @@ body{
     aspect-ratio: 4 / 3;
   }
 
-  .hero__logo{
-    width: clamp(320px, 30vw, 460px);
+  .hero__headline{
+    max-width: 680px;
+    margin: 0 auto;
+    top: 9%;
+  }
+
+  .hero__title{
+    font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  }
+
+  .hero__subtitle{
+    font-size: 1.15rem;
   }
 
   .links{
@@ -867,8 +905,18 @@ body{
     aspect-ratio: 21 / 10;
   }
 
-  .hero__logo{
-    width: clamp(360px, 18vw, 520px);
+  .hero__headline{
+    max-width: 620px;
+    top: 8%;
+  }
+
+  .hero__title{
+    font-size: clamp(1.7rem, 2vw, 2.05rem);
+  }
+
+  .hero__subtitle{
+    font-size: 1.1rem;
+    margin-top: 12px;
   }
 
   .hero__overlay-content{

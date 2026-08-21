@@ -15,16 +15,13 @@
   --rose:         #C98F6D;
   --white:        #FFFFFF;
 
-  --block-gold:   #E5D09E;
+  --block-gold:   #FFF6F6;
   --block-dark:   #253219;
   --dark-text:    #F3EEDF;
   --dark-text-soft: #C9CDB9;
 
-  /* "The Seasons" é uma fonte paga (não incluída no projeto).
-     Assim que os arquivos licenciados forem adicionados em assets/fonts,
-     basta declarar um @font-face "The Seasons" que ela entra automaticamente aqui. */
-  --display: 'The Seasons', 'Cormorant Garamond', 'Times New Roman', serif;
-  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
   --sans:  'Montserrat', 'Helvetica Neue', Arial, sans-serif;
 
   --radius-lg: 28px;
@@ -160,7 +157,7 @@ body{
 .hero__overlay{
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(18,16,11,0.62) 0%, rgba(18,16,11,0.36) 24%, rgba(58,52,44,0) 44%, rgba(58,52,44,0) 66%, rgba(250,246,238,0.92) 100%);
+  background: linear-gradient(180deg, rgba(18,16,11,0.62) 0%, rgba(18,16,11,0.36) 24%, rgba(58,52,44,0) 44%, rgba(58,52,44,0) 100%);
 }
 
 .hero__headline{
@@ -181,6 +178,7 @@ body{
   line-height: 1.32;
   color: #FBF6EA;
   text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  text-wrap: balance;
 }
 
 .hero__subtitle{
@@ -190,6 +188,7 @@ body{
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.5;
+  text-wrap: balance;
   color: var(--gold-light);
   text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
@@ -206,32 +205,54 @@ body{
   gap: 14px;
 }
 
-.hero__keywords{
-  margin: 0;
-  padding: 0 18px;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.hero__marquee{
+  width: 100%;
+  overflow: hidden;
 }
 
-.hero__keywords li{
-  padding: 7px 15px;
-  border-radius: 999px;
-  background: rgba(29, 40, 19, 0.78);
-  border: 1px solid rgba(233, 206, 147, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 6px 16px -8px rgba(0,0,0,0.5);
+.hero__marquee-track{
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: hero-marquee 20s linear infinite;
+}
+
+.hero__marquee:hover .hero__marquee-track{
+  animation-play-state: paused;
+}
+
+.hero__marquee-track li{
+  display: flex;
+  align-items: center;
   font-family: var(--sans);
   font-weight: 700;
-  font-size: 0.62rem;
-  letter-spacing: 0.09em;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #FCE9BC;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.6);
   white-space: nowrap;
+}
+
+.hero__marquee-track li::after{
+  content: "—";
+  margin: 0 18px;
+  color: var(--gold-light);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero__marquee-track{
+    animation: none;
+  }
+}
+
+@keyframes hero-marquee{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
 }
 
 /* ---------- Link cards (CTA da capa) ---------- */
@@ -256,20 +277,16 @@ body{
   border-radius: 16px;
   text-decoration: none;
   color: var(--ink);
-  background: rgba(250, 246, 238, 0.85);
-  border: 1px solid rgba(199, 160, 95, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 24px -14px rgba(0,0,0,0.45);
-  transition: background-color 260ms ease, transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+  background: transparent;
+  border: 1px solid rgba(251, 246, 234, 0.55);
+  transition: background-color 260ms ease, transform 260ms ease, border-color 260ms ease;
 }
 
 .link-card:hover,
 .link-card:focus-visible{
-  background: var(--block-gold);
+  background: rgba(251, 246, 234, 0.1);
   transform: translateY(-3px);
-  border-color: var(--gold);
-  box-shadow: 0 20px 38px -16px rgba(169, 128, 63, 0.45);
+  border-color: var(--gold-light);
 }
 
 .link-card:active{
@@ -288,7 +305,7 @@ body{
   font-size: 0.55rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-deep);
+  color: var(--gold-light);
 }
 
 .link-card__title{
@@ -296,28 +313,34 @@ body{
   font-weight: 500;
   font-size: 0.8rem;
   line-height: 1.2;
-  color: var(--ink);
+  color: #FBF6EA;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.link-card--clean{
+  border-radius: 999px;
+  padding: 13px 18px;
+}
+
+.link-card--clean .link-card__title{
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
 }
 
 .link-card--on-dark{
-  background: rgba(255, 255, 255, 0.06);
   border-color: rgba(233, 206, 147, 0.4);
   margin-top: 4px;
 }
 
 .link-card--on-dark .link-card__title{
-  color: var(--dark-text);
+  text-shadow: none;
 }
 
 .link-card--on-dark:hover,
 .link-card--on-dark:focus-visible{
-  background: rgba(233, 206, 147, 0.16);
+  background: rgba(233, 206, 147, 0.12);
   border-color: var(--gold-light);
-  box-shadow: 0 20px 38px -16px rgba(0, 0, 0, 0.45);
-}
-
-.link-card--on-dark:hover .link-card__title{
-  color: var(--dark-text);
 }
 
 .link-card__arrow{
@@ -328,15 +351,17 @@ body{
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(150deg, var(--gold-light), var(--gold));
-  color: var(--white);
-  transition: transform 260ms ease;
+  background: transparent;
+  border: 1px solid rgba(251, 246, 234, 0.6);
+  color: #FBF6EA;
+  transition: transform 260ms ease, border-color 260ms ease;
 }
 
 .link-card__arrow svg{ width: 12px; height: 12px; }
 
 .link-card:hover .link-card__arrow{
   transform: translateX(3px);
+  border-color: var(--gold-light);
 }
 
 /* ---------- Bloco 2 — Identidade ---------- */
@@ -349,23 +374,23 @@ body{
   background: var(--block-gold);
 }
 
-.block-identity__label{
-  margin: 0;
+.block-identity__title{
+  margin: 0 auto;
+  max-width: 480px;
   font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.2rem;
-  color: var(--gold-deep);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  line-height: 1.3;
+  color: var(--ink);
 }
 
 .block-identity__text{
-  margin: 16px auto 0;
-  max-width: 380px;
-  font-family: var(--serif);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 1.34rem;
-  line-height: 1.55;
+  margin: 18px auto 0;
+  max-width: 400px;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.65;
   color: var(--ink);
 }
 
@@ -434,7 +459,7 @@ body{
   font-weight: 300;
   font-size: 0.96rem;
   line-height: 1.75;
-  color: var(--dark-text-soft);
+  color: var(--dark-text);
 }
 
 .position__body em{
@@ -708,7 +733,7 @@ body{
   font-family: var(--sans);
   font-weight: 300;
   font-size: 0.68rem;
-  color: var(--dark-text-soft);
+  color: var(--dark-text);
 }
 
 /* ---------- Apenas mobile (celular) ---------- */
@@ -784,17 +809,20 @@ body{
   }
 
   .hero__headline{
-    max-width: 680px;
-    margin: 0 auto;
+    max-width: 640px;
+    margin: 0 0 0 auto;
     top: 9%;
+    text-align: right;
+    padding-left: 40px;
+    padding-right: 56px;
   }
 
   .hero__title{
-    font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+    font-size: clamp(2.1rem, 3.8vw, 2.7rem);
   }
 
   .hero__subtitle{
-    font-size: 1.15rem;
+    font-size: 1.3rem;
   }
 
   .links{
@@ -814,13 +842,14 @@ body{
     padding: 64px 56px;
   }
 
-  .block-identity__label{
-    font-size: 1.3rem;
+  .block-identity__title{
+    max-width: 640px;
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
   }
 
   .block-identity__text{
     max-width: 480px;
-    font-size: 1.5rem;
+    font-size: 1.15rem;
   }
 
   .position{
@@ -906,17 +935,21 @@ body{
   }
 
   .hero__headline{
-    max-width: 620px;
-    top: 8%;
+    max-width: 680px;
+    margin: 0 0 0 auto;
+    top: 12%;
+    text-align: right;
+    padding-left: 40px;
+    padding-right: 72px;
   }
 
   .hero__title{
-    font-size: clamp(1.7rem, 2vw, 2.05rem);
+    font-size: clamp(2rem, 2.6vw, 2.5rem);
   }
 
   .hero__subtitle{
-    font-size: 1.1rem;
-    margin-top: 12px;
+    font-size: 1.25rem;
+    margin-top: 14px;
   }
 
   .hero__overlay-content{
@@ -935,13 +968,14 @@ body{
     padding: 70px 56px;
   }
 
-  .block-identity__label{
-    font-size: 1.4rem;
+  .block-identity__title{
+    max-width: 720px;
+    font-size: clamp(2.1rem, 2.6vw, 2.6rem);
   }
 
   .block-identity__text{
-    max-width: 580px;
-    font-size: 1.6rem;
+    max-width: 520px;
+    font-size: 1.2rem;
   }
 
   .position__grid{
